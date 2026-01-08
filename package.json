@@ -1,0 +1,21 @@
+{
+  "name": "solaris",
+  "version": "1.0.0",
+  "description": "Solaris - Strong Light, Controlled Fights",
+  "scripts": {
+    "start": "npx serve public -p 2000",
+    "dev": "npx serve public -p 2000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ronaldtieu/solaris.git"
+  },
+  "keywords": [
+    "solaris",
+    "ecommerce",
+    "athletic",
+    "apparel"
+  ],
+  "author": "",
+  "license": "ISC"
+}
