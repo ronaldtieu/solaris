@@ -17,5 +17,8 @@ I kept it simple and didn't use any frameworks. It's just HTML for the structure
 just ```npm start``` to start!
 
 ---
+<img width="1218" height="864" alt="Screenshot 2026-01-08 at 4 23 03 AM" src="https://github.com/user-attachments/assets/e8271fa9-928c-4351-9ff6-dfb3225f5d77" />
+<img width="1147" height="765" alt="Screenshot 2026-01-08 at 4 11 15 AM" src="https://github.com/user-attachments/assets/516f4d43-2574-4556-81b1-ccc2bee392db" />
+
 
 © 2025 Solaris. From the early mornings, to the dead of night, Solaris to keep you geared for your fight.
