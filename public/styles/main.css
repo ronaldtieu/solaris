@@ -8,8 +8,10 @@
 }
 
 :root {
+    /* Dark mode (default) */
     --bg-dark: #0a0e27;
     --bg-card: rgba(26, 31, 58, 0.6);
+    --bg-secondary: #151932;
     --accent: #f59e0b;
     --accent-hover: #e6950a;
     --text-white: #ffffff;
@@ -20,6 +22,31 @@
     --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.15);
     --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.25);
     --transition: all 0.3s ease;
+    --hero-overlay-bg: linear-gradient(180deg, rgba(10, 14, 39, 0.4) 0%, rgba(10, 14, 39, 0.8) 100%);
+    --carousel-btn-bg: rgba(255, 255, 255, 0.1);
+    --carousel-btn-border: rgba(255, 255, 255, 0.2);
+    --product-overlay-gradient: linear-gradient(to top, rgba(10, 14, 39, 0.95) 0%, rgba(10, 14, 39, 0.4) 50%, transparent 100%);
+    --input-bg: rgba(255, 255, 255, 0.05);
+    --social-icon-bg: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="light"] {
+    /* Light mode overrides */
+    --bg-dark: #f8fafc;
+    --bg-card: rgba(255, 255, 255, 0.9);
+    --bg-secondary: #e2e8f0;
+    --text-white: #1e293b;
+    --text-gray: #64748b;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.12);
+    --hero-overlay-bg: linear-gradient(180deg, rgba(248, 250, 252, 0.3) 0%, rgba(248, 250, 252, 0.7) 100%);
+    --carousel-btn-bg: rgba(0, 0, 0, 0.1);
+    --carousel-btn-border: rgba(0, 0, 0, 0.15);
+    --product-overlay-gradient: linear-gradient(to top, rgba(30, 41, 59, 0.9) 0%, rgba(30, 41, 59, 0.4) 50%, transparent 100%);
+    --input-bg: rgba(0, 0, 0, 0.03);
+    --social-icon-bg: rgba(0, 0, 0, 0.03);
 }
 
 html {
@@ -31,8 +58,9 @@ body {
     font-size: 16px;
     line-height: 1.6;
     color: var(--text-white);
-    background: linear-gradient(135deg, var(--bg-dark) 0%, #151932 100%);
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-secondary) 100%);
     min-height: 100vh;
+    transition: background 0.4s ease, color 0.4s ease;
 }
 
 img {
@@ -63,7 +91,7 @@ ul {
     top: 0;
     left: 0;
     right: 0;
-    background: rgba(10, 14, 39, 0.9);
+    background: var(--bg-card);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border-color);
     z-index: 1000;
@@ -136,7 +164,7 @@ ul {
     top: 100%;
     left: 50%;
     transform: translateX(-50%) translateY(10px);
-    background: rgba(10, 14, 39, 0.98);
+    background: var(--bg-card);
     backdrop-filter: blur(12px);
     border: 1px solid var(--border-color);
     border-radius: 12px;
@@ -211,6 +239,62 @@ ul {
     transition: var(--transition);
 }
 
+/* theme toggle button */
+.theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.theme-toggle:hover {
+    background: rgba(245, 158, 11, 0.1);
+    transform: scale(1.1);
+}
+
+.theme-toggle .theme-icon {
+    font-size: 1.15rem;
+    color: var(--text-gray);
+    transition: var(--transition);
+    position: absolute;
+}
+
+.theme-toggle:hover .theme-icon {
+    color: var(--accent);
+}
+
+.theme-toggle .sun-icon {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0);
+}
+
+.theme-toggle .moon-icon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+[data-theme="light"] .theme-toggle .sun-icon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+[data-theme="light"] .theme-toggle .moon-icon {
+    opacity: 0;
+    transform: rotate(90deg) scale(0);
+}
+
+.theme-toggle .theme-icon {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* hero section */
 .hero-carousel {
     position: relative;
@@ -257,7 +341,7 @@ ul {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(180deg, rgba(10, 14, 39, 0.4) 0%, rgba(10, 14, 39, 0.8) 100%);
+    background: var(--hero-overlay-bg);
 }
 
 .hero-text {
@@ -326,9 +410,9 @@ ul {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--carousel-btn-bg);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--carousel-btn-border);
     width: 52px;
     height: 52px;
     border-radius: 50%;
@@ -463,7 +547,7 @@ ul {
 .product-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(10, 14, 39, 0.95) 0%, rgba(10, 14, 39, 0.4) 50%, transparent 100%);
+    background: var(--product-overlay-gradient);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -513,6 +597,168 @@ ul {
     background: linear-gradient(135deg, var(--accent) 0%, #ef4444 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+/* ambassadors/fighters section */
+.ambassadors {
+    padding: 6rem 0;
+    position: relative;
+}
+
+.fighters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+}
+
+.fighter-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: var(--transition);
+    position: relative;
+}
+
+.fighter-card:hover {
+    transform: translateY(-16px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+.fighter-image {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.fighter-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.fighter-card:hover .fighter-image img {
+    transform: scale(1.1);
+}
+
+.fighter-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem 1.25rem;
+    background: linear-gradient(135deg, var(--accent) 0%, #ef4444 100%);
+    color: var(--text-white);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 20px;
+    z-index: 5;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+}
+
+.fighter-badge.hot {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.fighter-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(10, 14, 39, 0.95) 0%, rgba(10, 14, 39, 0.6) 50%, transparent 100%);
+    padding: 2rem 1.5rem 1.5rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: var(--transition);
+}
+
+[data-theme="light"] .fighter-overlay {
+    background: linear-gradient(to top, rgba(30, 41, 59, 0.9) 0%, rgba(30, 41, 59, 0.5) 50%, transparent 100%);
+}
+
+.fighter-card:hover .fighter-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fighter-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.fighter-stats .stat {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-white);
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.fighter-stats .stat:last-child {
+    border-bottom: none;
+}
+
+.fighter-info {
+    padding: 1.75rem;
+    text-align: center;
+}
+
+.fighter-name {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-white);
+    line-height: 1.3;
+}
+
+.fighter-discipline {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+.fighter-bio {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--text-gray);
+    margin-bottom: 1.5rem;
+}
+
+.fighter-social {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.fighter-social a {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--social-icon-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    transition: var(--transition);
+    color: var(--text-gray);
+}
+
+.fighter-social a:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--text-white);
+    transform: translateY(-3px);
 }
 
 /* footer */
@@ -574,7 +820,7 @@ ul {
 
 .newsletter-form input {
     padding: 1rem;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--input-bg);
     border: 1px solid var(--border-color);
     border-radius: 10px;
     color: var(--text-white);
@@ -624,7 +870,7 @@ ul {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--social-icon-bg);
     border: 1px solid var(--border-color);
     border-radius: 50%;
     transition: var(--transition);
@@ -690,6 +936,10 @@ ul {
         gap: 1.5rem;
     }
 
+    [data-theme="light"] .nav-menu {
+        background: var(--bg-card);
+    }
+
     .nav-menu.active {
         left: 0;
     }
@@ -732,6 +982,10 @@ ul {
     }
 
     .products-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .fighters-grid {
         grid-template-columns: 1fr;
     }
 

@@ -3,6 +3,53 @@
  * No Shade. No Mercy.
  */
 
+// Theme Management - runs immediately to prevent flash
+(function() {
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+
+    // Get saved theme or default to 'dark'
+    const getSavedTheme = () => {
+        const saved = localStorage.getItem('solaris-theme');
+        if (saved) return saved;
+
+        // Check system preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+            return 'light';
+        }
+        return 'dark';
+    };
+
+    // Apply theme to DOM
+    const applyTheme = (theme) => {
+        html.setAttribute('data-theme', theme);
+        localStorage.setItem('solaris-theme', theme);
+    };
+
+    // Initialize theme
+    const initialTheme = getSavedTheme();
+    applyTheme(initialTheme);
+
+    // Theme toggle functionality
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme') || 'dark';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            applyTheme(newTheme);
+        });
+    }
+
+    // Listen for system theme changes
+    if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            // Only auto-switch if user hasn't manually set a preference
+            if (!localStorage.getItem('solaris-theme')) {
+                applyTheme(e.matches ? 'dark' : 'light');
+            }
+        });
+    }
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
     // Carousel functionality
     const carouselTrack = document.getElementById('carouselTrack');
@@ -172,8 +219,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    // Observe product cards and blog cards
-    document.querySelectorAll('.product-card, .blog-card').forEach(card => {
+    // Observe product cards, blog cards, and fighter cards
+    document.querySelectorAll('.product-card, .blog-card, .fighter-card').forEach(card => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(30px)';
         card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';

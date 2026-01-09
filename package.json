@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Solaris - Strong Light, Controlled Fights",
   "scripts": {
-    "start": "npx serve public -p 2000",
-    "dev": "npx serve public -p 2000"
+    "start": "npx serve public -p 1111",
+    "dev": "npx serve public -p 1111"
   },
   "repository": {
     "type": "git",
