@@ -242,12 +242,304 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Quick view button handlers
-    document.querySelectorAll('.btn-quick-view').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const productCard = this.closest('.product-card');
-            const productTitle = productCard.querySelector('.product-title').textContent;
-            alert(`Quick view: ${productTitle}\n\nThis would open a product modal in a full implementation.`);
+    // ===== PRODUCT INVENTORY =====
+    const products = [
+        {
+            id: 1,
+            name: 'Solaris Fight Shorts',
+            price: 59.99,
+            image: 'assets/images/product1.jpg',
+            inStock: true,
+            badge: 'New'
+        },
+        {
+            id: 2,
+            name: 'Compression Rashguard',
+            price: 49.99,
+            image: 'assets/images/product2.jpg',
+            inStock: true,
+            badge: null
+        },
+        {
+            id: 3,
+            name: 'Elite BJJ Gi',
+            price: 189.99,
+            image: 'assets/images/product3.jpg',
+            inStock: false,
+            badge: 'Hot'
+        },
+        {
+            id: 4,
+            name: 'Training Gloves',
+            price: 79.99,
+            image: 'assets/images/product4.jpg',
+            inStock: true,
+            badge: null
+        },
+        {
+            id: 5,
+            name: 'Muay Thai Shorts',
+            price: 54.99,
+            image: 'assets/images/product1.jpg',
+            inStock: false,
+            badge: null
+        },
+        {
+            id: 6,
+            name: 'Performance Hoodie',
+            price: 69.99,
+            image: 'assets/images/product2.jpg',
+            inStock: true,
+            badge: 'New'
+        }
+    ];
+
+    // ===== CART STATE =====
+    let cart = JSON.parse(localStorage.getItem('solaris-cart')) || [];
+
+    // ===== RENDER PRODUCTS =====
+    function renderProducts() {
+        const productsGrid = document.getElementById('productsGrid');
+        if (!productsGrid) return;
+
+        productsGrid.innerHTML = products.map(product => `
+            <div class="product-card ${!product.inStock ? 'product-out-of-stock' : ''}" data-product-id="${product.id}">
+                ${product.badge ? `<div class="product-badge ${product.badge === 'Hot' ? 'hot' : ''}">${product.badge}</div>` : ''}
+                <div class="product-image">
+                    <img src="${product.image}" alt="${product.name}">
+                    ${!product.inStock ? '<div class="out-of-stock-badge">Out of Stock</div>' : ''}
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">${product.name}</h3>
+                    <p class="product-price">$${product.price.toFixed(2)}</p>
+                </div>
+                <div class="product-actions">
+                    ${product.inStock
+                        ? `<button class="btn-add-to-cart" onclick="addToCart(${product.id})">Add to Cart</button>`
+                        : `<button class="btn-subscribe" onclick="openSubscribeModal(${product.id})">Get Notified</button>`
+                    }
+                </div>
+            </div>
+        `).join('');
+
+        // Re-attach scroll observer to new product cards
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
         });
-    });
+    }
+
+    renderProducts();
+
+    // ===== CART FUNCTIONS =====
+    function addToCart(productId) {
+        const product = products.find(p => p.id === productId);
+        if (!product || !product.inStock) return;
+
+        const existingItem = cart.find(item => item.id === productId);
+
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                image: product.image,
+                quantity: 1
+            });
+        }
+
+        saveCart();
+        updateCartUI();
+        openCart();
+    }
+
+    function removeFromCart(productId) {
+        cart = cart.filter(item => item.id !== productId);
+        saveCart();
+        updateCartUI();
+        renderCartItems();
+    }
+
+    function updateQuantity(productId, change) {
+        const item = cart.find(item => item.id === productId);
+        if (!item) return;
+
+        item.quantity += change;
+
+        if (item.quantity <= 0) {
+            removeFromCart(productId);
+            return;
+        }
+
+        saveCart();
+        updateCartUI();
+        renderCartItems();
+    }
+
+    function saveCart() {
+        localStorage.setItem('solaris-cart', JSON.stringify(cart));
+    }
+
+    function getCartTotal() {
+        return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    }
+
+    function getCartCount() {
+        return cart.reduce((count, item) => count + item.quantity, 0);
+    }
+
+    function updateCartUI() {
+        const cartCount = document.getElementById('cartCount');
+        const cartTotal = document.getElementById('cartTotal');
+        const count = getCartCount();
+
+        if (cartCount) {
+            cartCount.textContent = count;
+            if (count > 0) {
+                cartCount.classList.add('active');
+            } else {
+                cartCount.classList.remove('active');
+            }
+        }
+
+        if (cartTotal) {
+            cartTotal.textContent = `$${getCartTotal().toFixed(2)}`;
+        }
+    }
+
+    function renderCartItems() {
+        const cartItemsContainer = document.getElementById('cartItems');
+        if (!cartItemsContainer) return;
+
+        if (cart.length === 0) {
+            cartItemsContainer.innerHTML = `
+                <div class="cart-empty">
+                    <div class="cart-empty-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <p>Your cart is empty</p>
+                </div>
+            `;
+            return;
+        }
+
+        cartItemsContainer.innerHTML = cart.map(item => `
+            <div class="cart-item">
+                <div class="cart-item-image">
+                    <img src="${item.image}" alt="${item.name}">
+                </div>
+                <div class="cart-item-details">
+                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                    <div class="cart-item-controls">
+                        <div class="cart-item-quantity">
+                            <button class="cart-qty-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                            <span class="cart-qty-value">${item.quantity}</span>
+                            <button class="cart-qty-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                        </div>
+                        <button class="cart-item-remove" onclick="removeFromCart(${item.id})" aria-label="Remove item">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function openCart() {
+        const cartSidebar = document.getElementById('cartSidebar');
+        const cartOverlay = document.getElementById('cartOverlay');
+        if (cartSidebar) cartSidebar.classList.add('active');
+        if (cartOverlay) cartOverlay.classList.add('active');
+        renderCartItems();
+    }
+
+    function closeCart() {
+        const cartSidebar = document.getElementById('cartSidebar');
+        const cartOverlay = document.getElementById('cartOverlay');
+        if (cartSidebar) cartSidebar.classList.remove('active');
+        if (cartOverlay) cartOverlay.classList.remove('active');
+    }
+
+    // ===== SUBSCRIPTION MODAL =====
+    function openSubscribeModal(productId) {
+        const modal = document.getElementById('subscribeModal');
+        const productIdInput = document.getElementById('subscribeProductId');
+        if (modal) modal.classList.add('active');
+        if (productIdInput) productIdInput.value = productId;
+    }
+
+    function closeSubscribeModal() {
+        const modal = document.getElementById('subscribeModal');
+        if (modal) modal.classList.remove('active');
+    }
+
+    // ===== EVENT LISTENERS =====
+    // Cart trigger
+    const cartTrigger = document.getElementById('cartTrigger');
+    if (cartTrigger) {
+        cartTrigger.addEventListener('click', openCart);
+    }
+
+    // Cart close
+    const cartClose = document.getElementById('cartClose');
+    if (cartClose) {
+        cartClose.addEventListener('click', closeCart);
+    }
+
+    // Cart overlay click
+    const cartOverlay = document.getElementById('cartOverlay');
+    if (cartOverlay) {
+        cartOverlay.addEventListener('click', closeCart);
+    }
+
+    // Subscribe modal close
+    const subscribeModalClose = document.getElementById('subscribeModalClose');
+    if (subscribeModalClose) {
+        subscribeModalClose.addEventListener('click', closeSubscribeModal);
+    }
+
+    // Subscribe modal overlay click
+    const subscribeModal = document.getElementById('subscribeModal');
+    if (subscribeModal) {
+        subscribeModal.addEventListener('click', (e) => {
+            if (e.target === subscribeModal) {
+                closeSubscribeModal();
+            }
+        });
+    }
+
+    // Subscribe form
+    const subscribeForm = document.getElementById('subscribeForm');
+    if (subscribeForm) {
+        subscribeForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('subscribeEmail').value;
+            const productId = document.getElementById('subscribeProductId').value;
+            const product = products.find(p => p.id === parseInt(productId));
+
+            console.log('=== SUBSCRIPTION REQUEST ===');
+            console.log('Product:', product ? product.name : 'Unknown');
+            console.log('Product ID:', productId);
+            console.log('Email:', email);
+            console.log('Timestamp:', new Date().toISOString());
+            console.log('============================');
+
+            alert(`Thanks! We'll notify ${email} when ${product ? product.name : 'this product'} is back in stock.`);
+
+            subscribeForm.reset();
+            closeSubscribeModal();
+        });
+    }
+
+    // Initialize cart UI
+    updateCartUI();
+
+    // Make functions globally available
+    window.addToCart = addToCart;
+    window.removeFromCart = removeFromCart;
+    window.updateQuantity = updateQuantity;
+    window.openSubscribeModal = openSubscribeModal;
 });

@@ -40,7 +40,10 @@
                         </button>
                         <a href="#search" class="nav-icon"><i class="fas fa-search"></i></a>
                         <a href="#account" class="nav-icon"><i class="fas fa-user"></i></a>
-                        <a href="#cart" class="nav-icon"><i class="fas fa-shopping-cart"></i></a>
+                        <button class="nav-icon cart-trigger" id="cartTrigger" aria-label="Open cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cartCount">0</span>
+                        </button>
                         <button class="hamburger" id="hamburger">
                             <span></span>
                             <span></span>
@@ -106,64 +109,8 @@
         <div class="container">
             <h2 class="section-title">Featured Collection</h2>
 
-            <div class="products-grid">
-                <!-- Product 1 -->
-                <div class="product-card">
-                    <div class="product-badge">New</div>
-                    <div class="product-image">
-                        <img src="assets/images/product1.jpg" alt="Product 1">
-                        <div class="product-overlay">
-                            <button class="btn-quick-view">Quick View</button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Product Name</h3>
-                        <p class="product-price">$0.00</p>
-                    </div>
-                </div>
-
-                <!-- Product 2 -->
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="assets/images/product2.jpg" alt="Product 2">
-                        <div class="product-overlay">
-                            <button class="btn-quick-view">Quick View</button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Product Name</h3>
-                        <p class="product-price">$0.00</p>
-                    </div>
-                </div>
-
-                <!-- Product 3 -->
-                <div class="product-card">
-                    <div class="product-badge hot">Hot</div>
-                    <div class="product-image">
-                        <img src="assets/images/product3.jpg" alt="Product 3">
-                        <div class="product-overlay">
-                            <button class="btn-quick-view">Quick View</button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Product Name</h3>
-                        <p class="product-price">$0.00</p>
-                    </div>
-                </div>
-
-                <!-- Product 4 -->
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="assets/images/product4.jpg" alt="Product 4">
-                        <div class="product-overlay">
-                            <button class="btn-quick-view">Quick View</button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Product Name</h3>
-                        <p class="product-price">$0.00</p>
-                    </div>
-                </div>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be dynamically rendered by JavaScript -->
             </div>
         </div>
     </section>
@@ -329,6 +276,45 @@
             </div>
         </div>
     </footer>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <aside class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="cart-close" id="cartClose" aria-label="Close cart">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be dynamically rendered -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total</span>
+                <span class="total-amount" id="cartTotal">$0.00</span>
+            </div>
+            <button class="cart-checkout">Checkout</button>
+        </div>
+    </aside>
+
+    <!-- Subscription Modal -->
+    <div class="modal-overlay" id="subscribeModal">
+        <div class="modal-content">
+            <button class="modal-close" id="subscribeModalClose" aria-label="Close modal">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <h2>Get Notified</h2>
+                <p>We'll email you when this item is back in stock</p>
+            </div>
+            <form class="subscribe-form" id="subscribeForm">
+                <input type="hidden" id="subscribeProductId">
+                <input type="email" id="subscribeEmail" placeholder="Enter your email" required>
+                <button type="submit">Notify Me</button>
+            </form>
+        </div>
+    </div>
 
     <script src="/scripts/main.js"></script>
 </body>
