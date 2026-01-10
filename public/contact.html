@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Solaris for sponsorship opportunities and collaborations">
+    <title>Contact | Solaris</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="/" class="logo">
+                        <span class="logo-text">SOLARIS</span>
+                    </a>
+
+                    <ul class="nav-menu">
+                        <li><a href="/#shop">Shop</a></li>
+                        <li class="dropdown">
+                            <a href="/#apparel">Apparel <i class="fas fa-chevron-down" style="font-size: 0.7em; margin-left: 4px;"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#lightning">Lightning Jiujitsu</a></li>
+                                <li><a href="#show-all">Show All</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/#accessories">Accessories</a></li>
+                        <li><a href="/#about">About</a></li>
+                    </ul>
+
+                    <div class="nav-icons">
+                        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                            <i class="fas fa-sun theme-icon sun-icon"></i>
+                            <i class="fas fa-moon theme-icon moon-icon"></i>
+                        </button>
+                        <a href="/#search" class="nav-icon"><i class="fas fa-search"></i></a>
+                        <a href="/#account" class="nav-icon"><i class="fas fa-user"></i></a>
+                        <button class="nav-icon cart-trigger" id="cartTrigger" aria-label="Open cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cartCount">0</span>
+                        </button>
+                        <button class="hamburger" id="hamburger">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contact Page -->
+    <section class="contact-page">
+        <div class="container">
+            <div class="contact-header">
+                <h1>Get In Touch</h1>
+                <p class="contact-subtitle">Interested in sponsorship or collaboration opportunities? We'd love to hear from you.</p>
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2>Contact Information</h2>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email</h3>
+                            <p>contact@solaris.com</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fab fa-instagram"></i>
+                        <div>
+                            <h3>Instagram</h3>
+                            <p>@lightning_jiu_jitsu</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Location</h3>
+                            <p>Los Angeles, CA</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper">
+                    <h2>Sponsorship Inquiry</h2>
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required placeholder="your@email.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inquiryType">Inquiry Type *</label>
+                            <select id="inquiryType" name="inquiryType" required>
+                                <option value="">Select an option</option>
+                                <option value="athlete-sponsorship">Athlete Sponsorship</option>
+                                <option value="team-sponsorship">Team Sponsorship</option>
+                                <option value="event-sponsorship">Event Sponsorship</option>
+                                <option value="brand-collaboration">Brand Collaboration</option>
+                                <option value="media-press">Media & Press</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="instagram">Instagram Handle</label>
+                                <input type="text" id="instagram" name="instagram" placeholder="@username">
+                            </div>
+                            <div class="form-group">
+                                <label for="followers">Follower Count</label>
+                                <input type="text" id="followers" name="followers" placeholder="e.g., 50K">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="tiktok">TikTok Handle</label>
+                                <input type="text" id="tiktok" name="tiktok" placeholder="@username">
+                            </div>
+                            <div class="form-group">
+                                <label for="youtube">YouTube Channel</label>
+                                <input type="text" id="youtube" name="youtube" placeholder="Channel URL">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" id="location" name="location" placeholder="City, State/Country">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="achievements">Achievements / Notable Accomplishments</label>
+                            <textarea id="achievements" name="achievements" rows="3" placeholder="Tell us about your achievements, titles, or notable accomplishments..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" rows="5" required placeholder="Tell us about yourself and why you'd be a great fit for Solaris..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit">Submit Inquiry</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Shop</h4>
+                    <ul>
+                        <li><a href="/#mens">Men's</a></li>
+                        <li><a href="/#womens">Women's</a></li>
+                        <li><a href="/#kids">Kids</a></li>
+                        <li><a href="/#collections">Collections</a></li>
+                        <li><a href="/#accessories">Accessories</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="/#about">About Us</a></li>
+                        <li><a href="/#ambassadors">Ambassadors</a></li>
+                        <li><a href="/contact.html">Contact</a></li>
+                        <li><a href="/#careers">Careers</a></li>
+                    </ul>
+                    <p class="footer-tagline">From the early mornings, to the dead of night, Solaris to keep you geared for your fight.</p>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="/#faq">FAQ</a></li>
+                        <li><a href="/#shipping">Shipping Info</a></li>
+                        <li><a href="/#returns">Returns</a></li>
+                        <li><a href="/#size-guide">Size Guide</a></li>
+                        <li><a href="/#care">Care Instructions</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe for exclusive offers and latest updates</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                    <div class="social-icons">
+                        <a href="#instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#youtube"><i class="fab fa-youtube"></i></a>
+                        <a href="#twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Solaris. Strong Light, Controlled Fights All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#terms">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/scripts/main.js"></script>
+    <script src="/scripts/contact.js"></script>
+</body>
+</html>
