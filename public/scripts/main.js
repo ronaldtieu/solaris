@@ -219,8 +219,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    // Observe product cards, blog cards, and fighter cards
-    document.querySelectorAll('.product-card, .blog-card, .fighter-card').forEach(card => {
+    // Observe product cards, blog cards, fighter cards, and instagram posts
+    document.querySelectorAll('.product-card, .blog-card, .fighter-card, .instagram-post').forEach(card => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(30px)';
         card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
