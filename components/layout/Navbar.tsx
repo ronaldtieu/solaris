@@ -27,21 +27,13 @@ export default function Navbar() {
             </Link>
 
             <ul className={`nav-menu ${isMobileMenuOpen ? 'active' : ''}`}>
-              <li>
-                <Link href="/#shop" onClick={closeMobileMenu}>
-                  Shop
-                </Link>
-              </li>
               <li className="dropdown">
-                <a href="/#apparel">
+                <Link href="/apparel/indoninja-rash-guard">
                   Apparel <i className="fas fa-chevron-down" style={{ fontSize: '0.7em', marginLeft: '4px' }}></i>
-                </a>
+                </Link>
                 <ul className="dropdown-menu">
                   <li>
-                    <a href="#lightning">Lightning Jiujitsu</a>
-                  </li>
-                  <li>
-                    <a href="#show-all">Show All</a>
+                    <Link href="/apparel/indoninja-rash-guard" onClick={closeMobileMenu}>Indoninja Rash Guard</Link>
                   </li>
                 </ul>
               </li>
