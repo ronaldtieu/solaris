@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "Solaris - Strong Light, Controlled Fights",
   "scripts": {
-    "start": "npx serve public -p 1111",
-    "dev": "npx serve public -p 1111"
+    "dev": "next dev -p 1111",
+    "build": "next build",
+    "start": "next start -p 1111",
+    "lint": "next lint"
   },
   "repository": {
     "type": "git",
@@ -17,5 +19,16 @@
     "apparel"
   ],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "next": "^15.5.9",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.6",
+    "@types/react": "^19.2.8",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "^5.9.3"
+  }
 }
