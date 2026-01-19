@@ -35,21 +35,6 @@ export default function ContactPage() {
       submittedAt: new Date().toISOString(),
     };
 
-    // Log to console
-    console.log('=== SPONSORSHIP INQUIRY ===');
-    console.log('Name:', submissionData.name);
-    console.log('Email:', submissionData.email);
-    console.log('Inquiry Type:', submissionData.inquiryType);
-    console.log('Instagram:', submissionData.instagram || 'Not provided');
-    console.log('Followers:', submissionData.followers || 'Not provided');
-    console.log('TikTok:', submissionData.tiktok || 'Not provided');
-    console.log('YouTube:', submissionData.youtube || 'Not provided');
-    console.log('Location:', submissionData.location || 'Not provided');
-    console.log('Achievements:', submissionData.achievements || 'Not provided');
-    console.log('Message:', submissionData.message);
-    console.log('Submitted:', submissionData.submittedAt);
-    console.log('============================');
-
     // Show success message
     alert(
       `Thanks ${submissionData.name}! We've received your ${submissionData.inquiryType.replace(

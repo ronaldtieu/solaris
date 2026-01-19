@@ -6,38 +6,6 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
-interface LocationData {
-  country: string;
-  region: string;
-  city: string;
-}
-
-async function getLocationFromIP(ip: string): Promise<LocationData> {
-  try {
-    // Try ip-api.com (free, no key required)
-    const response = await fetch(`http://ip-api.com/json/${ip}`);
-    if (response.ok) {
-      const data = await response.json();
-      if (data.status === 'success') {
-        return {
-          country: data.country || '',
-          region: data.regionName || '',
-          city: data.city || '',
-        };
-      }
-    }
-  } catch (error) {
-    console.error('Error fetching location from ip-api:', error);
-  }
-
-  // Fallback: return empty location data
-  return {
-    country: '',
-    region: '',
-    city: '',
-  };
-}
-
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -60,14 +28,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get client IP address
-    const ip = request.headers.get('x-forwarded-for') ||
-               request.headers.get('x-real-ip') ||
-               'unknown';
-
-    // Get location from IP
-    const location = await getLocationFromIP(ip);
-
     // Insert into database
     const { data, error } = await supabase
       .from('stock_notifications')
@@ -77,10 +37,6 @@ export async function POST(request: NextRequest) {
         color: color,
         size: size,
         email: email.toLowerCase().trim(),
-        country: location.country,
-        state: location.region,
-        city: location.city,
-        ip_address: ip,
       })
       .select()
       .single();
@@ -103,11 +59,6 @@ export async function POST(request: NextRequest) {
         product: productSlug,
         color,
         size,
-        location: {
-          country: location.country,
-          state: location.region,
-          city: location.city,
-        },
       },
     }, { status: 201 });
 

@@ -25,21 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 submittedAt: new Date().toISOString()
             };
 
-            // Log to console
-            console.log('=== SPONSORSHIP INQUIRY ===');
-            console.log('Name:', formData.name);
-            console.log('Email:', formData.email);
-            console.log('Inquiry Type:', formData.inquiryType);
-            console.log('Instagram:', formData.instagram || 'Not provided');
-            console.log('Followers:', formData.followers || 'Not provided');
-            console.log('TikTok:', formData.tiktok || 'Not provided');
-            console.log('YouTube:', formData.youtube || 'Not provided');
-            console.log('Location:', formData.location || 'Not provided');
-            console.log('Achievements:', formData.achievements || 'Not provided');
-            console.log('Message:', formData.message);
-            console.log('Submitted:', formData.submittedAt);
-            console.log('============================');
-
             // Show success message
             alert(`Thanks ${formData.name}! We've received your ${formData.inquiryType.replace('-', ' ')} inquiry and will get back to you soon. No Shade. No Mercy.`);
 
