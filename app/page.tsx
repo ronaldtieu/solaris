@@ -1,10 +1,9 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import HeroCarousel from '@/components/home/HeroCarousel';
-import FeaturedProducts from '@/components/home/FeaturedProducts';
 import AmbassadorSection from '@/components/home/AmbassadorSection';
 import SocialsSection from '@/components/home/SocialsSection';
 import CartSidebar from '@/components/cart/CartSidebar';
@@ -12,108 +11,32 @@ import StockModal from '@/components/cart/StockModal';
 import { useCart } from '@/hooks/useCart';
 import { Product, Fighter, InstagramPost } from '@/lib/types';
 
-// Product data
-const products: Product[] = [
-  {
-    id: 1,
-    name: 'Solaris Fight Shorts',
-    price: 59.99,
-    image: '/assets/images/product1.jpg',
-    inStock: true,
-    badge: 'New',
-  },
-  {
-    id: 2,
-    name: 'Compression Rashguard',
-    price: 49.99,
-    image: '/assets/images/product2.jpg',
-    inStock: true,
-    badge: null,
-  },
-  {
-    id: 3,
-    name: 'Elite BJJ Gi',
-    price: 189.99,
-    image: '/assets/images/product3.jpg',
-    inStock: false,
-    badge: 'Hot',
-  },
-  {
-    id: 4,
-    name: 'Training Gloves',
-    price: 79.99,
-    image: '/assets/images/product4.jpg',
-    inStock: true,
-    badge: null,
-  },
-  {
-    id: 5,
-    name: 'Muay Thai Shorts',
-    price: 54.99,
-    image: '/assets/images/product1.jpg',
-    inStock: false,
-    badge: null,
-  },
-  {
-    id: 6,
-    name: 'Performance Hoodie',
-    price: 69.99,
-    image: '/assets/images/product2.jpg',
-    inStock: true,
-    badge: 'New',
-  },
-];
+// Empty product array - products are on individual pages
+const products: Product[] = [];
 
 // Fighter data
 const fighters: Fighter[] = [
   {
-    name: 'Marcus "The Phoenix" Silva',
-    nickname: 'The Phoenix',
-    discipline: 'BJJ Specialist',
-    bio: 'Two-time world champion with over 15 years of experience. Known for explosive takedowns and relentless ground control.',
-    image: '/assets/images/fighter1.jpg',
-    record: '18-3',
-    weight: 'Lightweight',
-    social: {
-      instagram: '#instagram',
-      twitter: '#twitter',
-    },
-  },
-  {
-    name: 'Elena "La Tormenta" Rodriguez',
-    nickname: 'La Tormenta',
-    discipline: 'Muay Thai Striker',
-    bio: 'Current featherweight champion with a devastating striking game. Trains in Thailand and brings authentic fight science to every match.',
-    image: '/assets/images/fighter2.jpg',
-    record: '22-1',
+    name: 'Brady Huang',
+    nickname: 'The Kung Fu Warrior',
+    discipline: 'Professional MMA Fighter',
+    bio: 'Featherweight contender with exceptional striking and grappling skills. Known for his dynamic fighting style and devastating finishes.',
+    image: 'https://iviplovyflonaawlbpgb.supabase.co/storage/v1/object/public/solaris-bucket/brady.jpg',
+    record: '15-4-0',
     weight: 'Featherweight',
-    badge: 'Champion',
     social: {
       instagram: '#instagram',
       twitter: '#twitter',
     },
   },
   {
-    name: 'James "Iron" Chen',
-    nickname: 'Iron',
-    discipline: 'MMA All-Rounder',
-    bio: 'Well-rounded fighter with exceptional cardio and fight IQ. Known for pushing the pace and breaking opponents in later rounds.',
-    image: '/assets/images/fighter3.jpg',
-    record: '15-2',
-    weight: 'Welterweight',
-    social: {
-      instagram: '#instagram',
-      twitter: '#twitter',
-    },
-  },
-  {
-    name: 'Sofia "The Viking" Andersson',
-    nickname: 'The Viking',
-    discipline: 'Wrestler',
-    bio: 'Undefeated prospect with Olympic-level wrestling credentials. Dominant grappling with rapidly improving striking arsenal.',
-    image: '/assets/images/fighter4.jpg',
-    record: '8-0',
-    weight: 'Bantamweight',
+    name: 'Bilal Alakai Hasan',
+    nickname: 'The Indoninja',
+    discipline: 'Professional MMA Fighter',
+    bio: 'Undefeated flyweight phenom with lightning-fast striking and elite grappling. A rising star in the MMA world.',
+    image: 'https://iviplovyflonaawlbpgb.supabase.co/storage/v1/object/public/solaris-bucket/bilal.jpg',
+    record: '8-0-0',
+    weight: 'Flyweight',
     badge: 'Rising Star',
     social: {
       instagram: '#instagram',
@@ -236,11 +159,6 @@ export default function Home() {
       <Navbar />
       <main>
         <HeroCarousel />
-        <FeaturedProducts
-          products={products}
-          onAddToCart={addToCart}
-          onSubscribe={handleSubscribe}
-        />
         <AmbassadorSection fighters={fighters} />
         <SocialsSection posts={instagramPosts} />
       </main>
