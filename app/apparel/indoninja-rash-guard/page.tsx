@@ -86,6 +86,7 @@ export default function IndoninjaRashGuardPage() {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
 
   const handleVariantChange = (newVariant: VariantSelection) => {
@@ -131,41 +132,47 @@ export default function IndoninjaRashGuardPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError(null);
 
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    const submissionData = {
-      ...formData,
-      selectedColor: selectedVariant.color,
-      selectedSize: selectedVariant.size,
-      product: product.name,
-      submittedAt: new Date().toISOString(),
-    };
-
-    // Log to console for now (prepare for Supabase insertion)
-    console.log('=== PRODUCT INTEREST SUBMISSION ===');
-    console.log('Product:', submissionData.product);
-    console.log('Selected Color:', submissionData.selectedColor);
-    console.log('Selected Size:', submissionData.selectedSize);
-    console.log('Full Name:', submissionData.fullName);
-    console.log('Email:', submissionData.email);
-    console.log('====================================');
-
-    // Show success message
-    setIsSubmitted(true);
-    setIsSubmitting(false);
-
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setFormData({
-        fullName: '',
-        email: '',
-        selectedColor: selectedVariant.color,
-        selectedSize: selectedVariant.size,
+    try {
+      const response = await fetch('/api/stock-notification', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          productSlug: 'indoninja-rash-guard',
+          color: selectedVariant.color,
+          size: selectedVariant.size,
+          email: formData.email,
+          name: formData.fullName,
+        }),
       });
-      setIsSubmitted(false);
-    }, 3000);
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit notification request');
+      }
+
+      // Show success message
+      setIsSubmitted(true);
+
+      // Reset form after 3 seconds
+      setTimeout(() => {
+        setFormData({
+          fullName: '',
+          email: '',
+          selectedColor: selectedVariant.color,
+          selectedSize: selectedVariant.size,
+        });
+        setIsSubmitted(false);
+      }, 3000);
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : 'An error occurred');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const isBlack = selectedVariant.color === 'black';
@@ -786,7 +793,29 @@ export default function IndoninjaRashGuardPage() {
                       </p>
                     </div>
                   ) : (
-                    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                    <>
+                      {submitError && (
+                        <div style={{
+                          padding: '1rem',
+                          background: 'rgba(239, 68, 68, 0.1)',
+                          border: '1px solid rgba(239, 68, 68, 0.3)',
+                          borderRadius: '12px',
+                          marginBottom: '1.5rem',
+                        }}>
+                          <p style={{
+                            fontSize: '0.9rem',
+                            color: '#ef4444',
+                            margin: 0,
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.5rem',
+                          }}>
+                            <i className="fas fa-exclamation-circle"></i>
+                            {submitError}
+                          </p>
+                        </div>
+                      )}
+                      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                         <label htmlFor="fullName" style={{
                           fontWeight: '600',
@@ -925,6 +954,7 @@ export default function IndoninjaRashGuardPage() {
                         {isSubmitting ? 'Submitting...' : 'Notify Me When Available'}
                       </button>
                     </form>
+                    </>
                   )}
                 </div>
               </div>
