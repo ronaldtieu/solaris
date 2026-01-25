@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-import { getProductImageUrl } from '@/lib/supabase/client-storage';
 
 type SizeVariant = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL';
 type ColorVariant = 'black' | 'white';
@@ -46,13 +45,13 @@ const product = {
       value: 'black' as ColorVariant,
       label: 'Black Edition',
       hexColor: '#1a1a2e',
-      thumbnail: 'indoninja-gear-1-p.jpeg',
+      thumbnail: 'https://iviplovyflonaawlbpgb.supabase.co/storage/v1/object/public/solaris-bucket/indoninja-gear-1-p.jpeg',
     },
     {
       value: 'white' as ColorVariant,
       label: 'White Edition',
       hexColor: '#f8fafc',
-      thumbnail: 'indoninja-gear-2-p.jpeg',
+      thumbnail: 'https://iviplovyflonaawlbpgb.supabase.co/storage/v1/object/public/solaris-bucket/indoninja-gear-2-p.jpeg',
     },
   ],
 
@@ -61,8 +60,14 @@ const product = {
 
   // Image galleries by color (main image is first, followed by additional views)
   images: {
-    black: ['indoninja-gear-1.jpeg', 'indoninja-gear-1-p.jpeg'],
-    white: ['indoninja-gear-2.jpeg', 'indoninja-gear-2-p.jpeg'],
+    black: [
+      'https://iviplovyflonaawlbpgb.supabase.co/storage/v1/object/public/solaris-bucket/indoninja-gear-1.jpeg',
+      'https://iviplovyflonaawlbpgb.supabase.co/storage/v1/object/public/solaris-bucket/indoninja-gear-1-p.jpeg'
+    ],
+    white: [
+      'https://iviplovyflonaawlbpgb.supabase.co/storage/v1/object/public/solaris-bucket/indoninja-gear-2.jpeg',
+      'https://iviplovyflonaawlbpgb.supabase.co/storage/v1/object/public/solaris-bucket/indoninja-gear-2-p.jpeg'
+    ],
   },
 };
 
@@ -459,12 +464,12 @@ export default function IndoninjaRashGuardPage() {
                   </div>
 
                   <img
-                    src={getProductImageUrl(getCurrentImage())}
+                    src={getCurrentImage()}
                     alt={`${product.name} - ${selectedVariant.color} edition`}
                     style={{
                       width: '100%',
                       height: '100%',
-                      objectFit: 'cover',
+                      objectFit: getCurrentImage().includes('-p.') ? 'contain' : 'cover',
                       filter: isBlack ? 'brightness(0.8) contrast(1.2)' : 'none',
                       transition: 'filter 0.5s ease',
                     }}
@@ -514,7 +519,7 @@ export default function IndoninjaRashGuardPage() {
                       }}
                     >
                       <img
-                        src={getProductImageUrl(color.thumbnail)}
+                        src={color.thumbnail}
                         alt={color.label}
                         style={thumbnailImageStyle}
                       />
