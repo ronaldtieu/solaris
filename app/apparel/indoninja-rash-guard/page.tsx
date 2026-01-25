@@ -45,13 +45,13 @@ const product = {
       value: 'black' as ColorVariant,
       label: 'Black Edition',
       hexColor: '#1a1a2e',
-      thumbnail: 'https://iviplovyflonaawlbpgb.supabase.co/storage/v1/object/public/solaris-bucket/indoninja-gear-1-p.jpeg',
+      thumbnail: 'https://iviplovyflonaawlbpgb.supabase.co/storage/v1/object/public/solaris-bucket/indoninja-gear-1.jpeg',
     },
     {
       value: 'white' as ColorVariant,
       label: 'White Edition',
       hexColor: '#f8fafc',
-      thumbnail: 'https://iviplovyflonaawlbpgb.supabase.co/storage/v1/object/public/solaris-bucket/indoninja-gear-2-p.jpeg',
+      thumbnail: 'https://iviplovyflonaawlbpgb.supabase.co/storage/v1/object/public/solaris-bucket/indoninja-gear-2.jpeg',
     },
   ],
 
@@ -340,9 +340,11 @@ export default function IndoninjaRashGuardPage() {
                   position: 'relative',
                   borderRadius: '24px',
                   overflow: 'hidden',
-                  background: isBlack
+                  background: getCurrentImage().includes('-p.')
                     ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)'
-                    : 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
+                    : isBlack
+                      ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)'
+                      : '#f8fafc',
                   aspectRatio: '1',
                   border: '1px solid var(--border-color)',
                   boxShadow: 'var(--shadow-lg)',
