@@ -47,13 +47,13 @@ export default function SocialsSection({ posts }: SocialsSectionProps) {
 
         <div className="instagram-header">
           <a
-            href="https://www.instagram.com/lightning_jiu_jitsu/"
+            href="https://www.instagram.com/solariscombatshop/"
             target="_blank"
             rel="noopener"
             className="instagram-profile-link"
           >
             <i className="fab fa-instagram"></i>
-            <span className="instagram-handle">@lightning_jiu_jitsu</span>
+            <span className="instagram-handle">@solariscombatshop</span>
           </a>
           <p className="instagram-subtitle">Join our community on Instagram</p>
         </div>
@@ -62,7 +62,7 @@ export default function SocialsSection({ posts }: SocialsSectionProps) {
           {posts.map((post, index) => (
             <a
               key={index}
-              href="https://www.instagram.com/lightning_jiu_jitsu/"
+              href="https://www.instagram.com/solariscombatshop/"
               target="_blank"
               rel="noopener"
               className="instagram-post"
@@ -86,13 +86,13 @@ export default function SocialsSection({ posts }: SocialsSectionProps) {
 
         <div className="instagram-cta">
           <a
-            href="https://www.instagram.com/lightning_jiu_jitsu/"
+            href="https://www.instagram.com/solariscombatshop/"
             target="_blank"
             rel="noopener"
             className="btn-instagram"
           >
             <i className="fab fa-instagram"></i>
-            Follow @lightning_jiu_jitsu
+            Follow @solariscombatshop
           </a>
         </div>
       </div>
