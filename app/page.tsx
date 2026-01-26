@@ -21,12 +21,11 @@ const fighters: Fighter[] = [
     nickname: 'The Kung Fu Warrior',
     discipline: 'Professional MMA Fighter',
     bio: 'Featherweight contender with exceptional striking and grappling skills. Known for his dynamic fighting style and devastating finishes.',
-    image: 'https://iviplovyflonaawlbpgb.supabase.co/storage/v1/object/public/solaris-bucket/brady.jpg',
-    record: '15-4-0',
+    image: 'https://iviplovyflonaawlbpgb.supabase.co/storage/v1/object/public/solaris-bucket/brady-belt.jpg',
+    record: '12-4-0',
     weight: 'Featherweight',
     social: {
-      instagram: '#instagram',
-      twitter: '#twitter',
+      instagram: 'https://www.instagram.com/bradyhuang/'
     },
   },
   {
@@ -39,45 +38,11 @@ const fighters: Fighter[] = [
     weight: 'Flyweight',
     badge: 'Rising Star',
     social: {
-      instagram: '#instagram',
-      twitter: '#twitter',
+      instagram: 'https://www.instagram.com/billytheindoninja/'
     },
   },
 ];
 
-// Instagram posts data
-const instagramPosts: InstagramPost[] = [
-  {
-    image: '/assets/images/instagram1.jpg',
-    likes: '1.2k',
-    comments: '48',
-  },
-  {
-    image: '/assets/images/instagram2.jpg',
-    likes: '986',
-    comments: '32',
-  },
-  {
-    image: '/assets/images/instagram3.jpg',
-    likes: '2.1k',
-    comments: '89',
-  },
-  {
-    image: '/assets/images/instagram4.jpg',
-    likes: '1.5k',
-    comments: '64',
-  },
-  {
-    image: '/assets/images/instagram5.jpg',
-    likes: '1.8k',
-    comments: '71',
-  },
-  {
-    image: '/assets/images/instagram6.jpg',
-    likes: '2.4k',
-    comments: '103',
-  },
-];
 
 export default function Home() {
   const [subscribeProductId, setSubscribeProductId] = useState<number | null>(null);
@@ -160,7 +125,7 @@ export default function Home() {
       <main>
         <HeroCarousel />
         <AmbassadorSection fighters={fighters} />
-        <SocialsSection posts={instagramPosts} />
+        <SocialsSection posts={[]} />
       </main>
       <Footer />
       <CartSidebar
